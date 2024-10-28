@@ -1,0 +1,27 @@
+const express = require('express');
+  const bodyParser = require('body-parser');
+  
+  const app = express();
+  
+  
+ let todoList= [
+  { title: "college", description: "attend the college from 9am to 4pm" },
+  { title: "gym", description: "chest, triceps 4 and 3 sets respectively" },
+  { title: "cohort", description: "from 7 to 9" },
+  { title: "cohort assignment", description: "from 9:30 to 11:30" },
+  { title: "project", description: "snake game" },
+  { title: "college assignment", description: "engineering physics and maths lab manual" }
+ ]
+  
+  
+  app.use(bodyParser.json());
+  
+  app.get("/todos", function(req,res){
+    res.status(200).json({
+      msg: "here are your todo list items",
+      todos: todoList
+    })
+  })
+
+  module.exports = app;
+  app.listen(3000)
