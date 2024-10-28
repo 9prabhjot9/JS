@@ -1,0 +1,39 @@
+const express = require('express');
+  const bodyParser = require('body-parser');
+  
+  const app = express();
+  
+  
+ let todoList= [
+  { id: 1, title: "college", description: "attend the college from 9am to 4pm" },
+  { id: 2, title: "gym", description: "chest, triceps 4 and 3 sets respectively" },
+  { id: 3, title: "cohort", description: "from 7 to 9" },
+  { id: 4, title: "cohort assignment", description: "from 9:30 to 11:30" },
+  { id: 5, title: "project", description: "snake game" },
+  { id: 6, title: "college assignment", description: "engineering physics and maths lab manual" }
+ ]
+  
+  
+  app.use(bodyParser.json());
+  
+  app.get("/todos", function(req,res){
+    res.status(200).json({
+      msg: "here are your todo list items",
+      todos: todoList
+    })
+  })
+
+  app.use("/todos/:id", function(req,res){
+      const todoId = parseInt(req.params.id)
+      const todo = todoList.find(t => t.id === todoId)
+      if(todo){
+        res.status(200).json(todo)
+      }else{
+        res.status(404).json({
+          msg: "Todo not found"
+        })
+      }
+  })
+
+  module.exports = app;
+  app.listen(3000)
